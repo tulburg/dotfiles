@@ -34,10 +34,13 @@ set ignorecase
 set smartcase
 set termguicolors
 set t_Co=256
-set guicursor=n-v-c:block-blinkon0
+set guicursor=n-v-c-sm:block,i-ci-ve:ver25-Cursor,r-cr-o:hor20
+map <LeftMouse> <left><right>
+map <2-LeftMouse> <left><right>
+set mouse=a
 hi Normal guibg=NONE ctermbg=NONE
 
-set backupcopy=yes "Necessary for ParcelJS to work 
+set backupcopy=yes "Necessary for ParcelJS to work
 
 " Specify a directory for plugins
 " - Avoid using standard Vim directory names like 'plugin'
@@ -62,7 +65,7 @@ Plug 'brooth/far.vim'
 " Plug 'wincent/command-t', {'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 " Plug 'mtth/scratch.vim'
-Plug 'jacoborus/tender.vim' 
+Plug 'jacoborus/tender.vim'
 Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
 Plug 'wincent/ferret'
 
@@ -104,7 +107,6 @@ set noreadonly
 set backspace=indent,eol,start
 " set autochdir
 set scrolljump=3
-set mouse=a
 colorscheme tender
 
 
@@ -119,12 +121,12 @@ nnoremap <silent> <Leader>bu :bunload<CR> "(U)nload the current buffer
 nnoremap <silent> <Leader>bl :setnomodifiable<CR> " (L)ock the current buffer"
 nnoremap <silent> <Leader>t :bel term<CR><C-w>:horizontal resize -15<CR>
 nnoremap <silent> <Leader>fg :!sublm search file:\"%\"<CR><CR>
-function! GetVLines() 
-	let [line_start, column_start] = getpos("'<")[1:2]
+function! GetVLines()
+  let [line_start, column_start] = getpos("'<")[1:2]
   let [line_end, column_end]     = getpos("'>")[1:2]
-	execute "!sublm search file:'\"%\"'line:" . line_start . "-" . line_end
+  execute "!sublm search file:'\"%\"'line:" . line_start . "-" . line_end
 endfunction
-vnoremap <silent> <Leader>fg :call GetVLines()<CR>	
+vnoremap <silent> <Leader>fg :call GetVLines()<CR>
 vnoremap <silent> <Leader>cee    :Tabularize /=<CR>              "tabular
 vnoremap <silent> <Leader>cet    :Tabularize /#<CR>              "tabular
 vnoremap <silent> <Leader>ce     :Tabularize /
@@ -168,7 +170,7 @@ vnoremap r <C-r>
 nnoremap x dd
 nnoremap dd yyp<CR>
 vnoremap dd yyp<CR>
-vnoremap <D-c> "+y  
+vnoremap <D-c> "+y
 nnoremap <D-v> "+gp
 inoremap <D-v> <C-r>+
 nnoremap <D-c> "+y
@@ -251,29 +253,29 @@ vnoremap <leader>s "hy:Rg <C-r>h<CR>
 nnoremap <leader>s :Rg <C-r><C-w><CR>
 
 let g:fzf_colors =
-		\ { 'fg':      ['fg', 'Normal'],
-		\ 'bg':      ['bg', 'Normal'],
-		\ 'hl':      ['fg', 'Comment'],
-		\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-		\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-		\ 'hl+':     ['fg', 'Statement'],
-		\ 'info':    ['fg', 'PreProc'],
-		\ 'border':  ['fg', 'Ignore'],
-		\ 'prompt':  ['fg', 'Conditional'],
-		\ 'pointer': ['fg', 'Exception'],
-		\ 'marker':  ['fg', 'Keyword'],
-		\ 'spinner': ['fg', 'Label'],
-		\ 'header':  ['fg', 'Comment'] }
+      \ { 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'border':  ['fg', 'Ignore'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
 let g:terminal_ansi_colors = [
-		\ '#4e4e4e', '#d68787', '#5f865f', '#d8af5f',
-		\ '#85add4', '#d7afaf', '#87afaf', '#d0d0d0',
-		\ '#626262', '#d75f87', '#87af87', '#ffd787',
-		\ '#add4fb', '#ffafaf', '#87d7d7', '#e4e4e4'
-		\ ]
+      \ '#4e4e4e', '#d68787', '#5f865f', '#d8af5f',
+      \ '#85add4', '#d7afaf', '#87afaf', '#d0d0d0',
+      \ '#626262', '#d75f87', '#87af87', '#ffd787',
+      \ '#add4fb', '#ffafaf', '#87d7d7', '#e4e4e4'
+      \ ]
 let g:fzf_layout = { 'window': { 'width': 0.6, 'height': 0.6, 'relative': v:false } }
 
 command! -bang -nargs=? -complete=dir GFiles
-    \ call fzf#vim#gitfiles(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
+      \ call fzf#vim#gitfiles(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
 command! -bang -nargs=? -complete=dir Buffers
     \ call fzf#vim#buffers(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
 
@@ -288,10 +290,10 @@ function! s:SwitchProject(dir) abort
 
   if exists(':AutoSession')
     execute 'AutoSession restore'
-	endif
-	if exists(':Files')
-		execute 'Files'
-	endif
+  endif
+  if exists(':Files')
+    execute 'Files'
+  endif
 endfunction
 
 command! Projects call fzf#run(fzf#wrap({
@@ -384,8 +386,8 @@ inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-nmap <leader>l :CocList symbols<CR> 
-command! -nargs=? S :CocSearch <args> 
+nmap <leader>l :CocList symbols<CR>
+command! -nargs=? S :CocSearch <args>
 " Search and replace
 command! -nargs=? R :vimgrep <args> | :copen
 command! -nargs=? RA :cdo s<args> | update
@@ -445,50 +447,50 @@ command! -nargs=? -complete=buffer -bang BufOnly
     \ :call BufOnly('<args>', '<bang>')
 
 function! BufOnly(buffer, bang)
-	if a:buffer == ''
-		" No buffer provided, use the current buffer.
-		let buffer = bufnr('%')
-	elseif (a:buffer + 0) > 0
-		" A buffer number was provided.
-		let buffer = bufnr(a:buffer + 0)
-	else
-		" A buffer name was provided.
-		let buffer = bufnr(a:buffer)
-	endif
+  if a:buffer == ''
+    " No buffer provided, use the current buffer.
+    let buffer = bufnr('%')
+  elseif (a:buffer + 0) > 0
+    " A buffer number was provided.
+    let buffer = bufnr(a:buffer + 0)
+  else
+    " A buffer name was provided.
+    let buffer = bufnr(a:buffer)
+  endif
 
-	if buffer == -1
-		echohl ErrorMsg
-		echomsg "No matching buffer for" a:buffer
-		echohl None
-		return
-	endif
+  if buffer == -1
+    echohl ErrorMsg
+    echomsg "No matching buffer for" a:buffer
+    echohl None
+    return
+  endif
 
-	let last_buffer = bufnr('$')
+  let last_buffer = bufnr('$')
 
-	let delete_count = 0
-	let n = 1
-	while n <= last_buffer
-		if n != buffer && buflisted(n)
-			if a:bang == '' && getbufvar(n, '&modified')
-				echohl ErrorMsg
-				echomsg 'No write since last change for buffer'
-							\ n '(add ! to override)'
-				echohl None
-			else
-				silent exe 'bdel' . a:bang . ' ' . n
-				if ! buflisted(n)
-					let delete_count = delete_count+1
-				endif
-			endif
-		endif
-		let n = n+1
-	endwhile
+  let delete_count = 0
+  let n = 1
+  while n <= last_buffer
+    if n != buffer && buflisted(n)
+      if a:bang == '' && getbufvar(n, '&modified')
+        echohl ErrorMsg
+        echomsg 'No write since last change for buffer'
+              \ n '(add ! to override)'
+        echohl None
+      else
+        silent exe 'bdel' . a:bang . ' ' . n
+        if ! buflisted(n)
+          let delete_count = delete_count+1
+        endif
+      endif
+    endif
+    let n = n+1
+  endwhile
 
-	if delete_count == 1
-		echomsg delete_count "buffer deleted"
-	elseif delete_count > 1
-		echomsg delete_count "buffers deleted"
-	endif
+  if delete_count == 1
+    echomsg delete_count "buffer deleted"
+  elseif delete_count > 1
+    echomsg delete_count "buffers deleted"
+  endif
 
 endfunction
 
