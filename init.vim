@@ -119,7 +119,7 @@ nnoremap <silent> <Leader>bb :bn<CR> "create (N)ew buffer
 nnoremap <silent> <Leader>bd :bdelete<CR> "(D)elete the current buffer
 nnoremap <silent> <Leader>bu :bunload<CR> "(U)nload the current buffer
 nnoremap <silent> <Leader>bl :setnomodifiable<CR> " (L)ock the current buffer"
-nnoremap <silent> <Leader>t :bel term<CR><C-w>:horizontal resize -15<CR>
+nnoremap <silent> <Leader>t :bel term<CR><C-w>:horizontal resize -15<CR>i
 nnoremap <silent> <Leader>fg :!sublm search file:\"%\"<CR><CR>
 function! GetVLines()
   let [line_start, column_start] = getpos("'<")[1:2]
@@ -162,6 +162,7 @@ nnoremap <silent>1 ^
 vnoremap <silent>1 ^
 nnoremap <silent>2 $
 vnoremap <silent>2 $<left>
+nnoremap ]{ /\v\{<CR>n
 nnoremap <leader>r <C-r>
 nnoremap <leader>u u
 nnoremap <leader>d :t.<CR>j
@@ -273,11 +274,14 @@ let g:terminal_ansi_colors = [
       \ '#add4fb', '#ffafaf', '#87d7d7', '#e4e4e4'
       \ ]
 let g:fzf_layout = { 'window': { 'width': 0.6, 'height': 0.6, 'relative': v:false } }
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 command! -bang -nargs=? -complete=dir GFiles
       \ call fzf#vim#gitfiles(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
 command! -bang -nargs=? -complete=dir Buffers
     \ call fzf#vim#buffers(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
+
+" ---------------------------------------------- AutoSession
 
 function! s:SwitchProject(dir) abort
   if exists(':AutoSession')
@@ -291,9 +295,9 @@ function! s:SwitchProject(dir) abort
   if exists(':AutoSession')
     execute 'AutoSession restore'
   endif
-  if exists(':Files')
-    execute 'Files'
-  endif
+  " if exists(':Files')
+  "   execute 'Files'
+  " endif
 endfunction
 
 command! Projects call fzf#run(fzf#wrap({
@@ -355,6 +359,12 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
+
+
+augroup FixShell
+  autocmd!
+  autocmd VimEnter * set shell=/bin/zsh shellcmdflag=-c
+augroup END
 
 " -------------------------------------------------- go format
 autocmd BufWritePre *.go :silent! call CocAction('format')
@@ -493,5 +503,4 @@ function! BufOnly(buffer, bang)
   endif
 
 endfunction
-
 
